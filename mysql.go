@@ -57,6 +57,14 @@ func GetSqlDB() (*sql.DB, error) {
 	return gormDB.DB()
 }
 
+func Release() (err error) {
+	sqlDB, err := GetSqlDB()
+	if err != nil {
+		return
+	}
+	return sqlDB.Close()
+}
+
 func getGromConfig(config *MysqlConfig) (gormConfig *gorm.Config) {
 	gormConfig = &gorm.Config{}
 	gormConfig.Logger = logger.New(
