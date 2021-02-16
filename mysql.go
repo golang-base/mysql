@@ -77,7 +77,7 @@ func getGromConfig(config *MysqlConfig) (gormConfig *gorm.Config) {
 			Colorful:      true,        // 彩色打印
 		})
 	gormConfig.Logger.LogMode(logger.Info)
-	gormConfig.DryRun = true // 是否只生成sql 而不执行
+	gormConfig.DryRun = false // 是否只生成sql 而不执行
 	return
 }
 
