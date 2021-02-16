@@ -22,10 +22,8 @@ type MysqlConfig struct {
 }
 
 var gormDB *gorm.DB
-var TestP int
 
 func Init(config *MysqlConfig) (err error) {
-	TestP = 33
 	gormConfig := getGromConfig(config)
 	gormDB, err = gorm.Open(_mysql.Open(config.DataSourceName), gormConfig)
 	if err != nil {
