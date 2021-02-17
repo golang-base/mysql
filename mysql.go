@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-type MysqlConfig struct {
+type Config struct {
 	DataSourceName  string // 数据库连接字符串
 	MaxOpenConn     int    // 最大打开的连接数
 	MaxIdelConn     int    // 最大空闲的连接数
@@ -23,7 +23,7 @@ type MysqlConfig struct {
 
 var gormDB *gorm.DB
 
-func Init(config *MysqlConfig) (err error) {
+func Init(config *Config) (err error) {
 	gormConfig := getGromConfig(config)
 	gormDB, err = gorm.Open(_mysql.Open(config.DataSourceName), gormConfig)
 	if err != nil {
@@ -65,7 +65,7 @@ func Release() (err error) {
 	return sqlDB.Close()
 }
 
-func getGromConfig(config *MysqlConfig) (gormConfig *gorm.Config) {
+func getGromConfig(config *Config) (gormConfig *gorm.Config) {
 	gormConfig = &gorm.Config{}
 	gormConfig.Logger = logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
@@ -80,7 +80,7 @@ func getGromConfig(config *MysqlConfig) (gormConfig *gorm.Config) {
 }
 
 func main() {
-	config := MysqlConfig{
+	config := Config{
 		DataSourceName:  "",
 		MaxOpenConn:     20,
 		MaxIdelConn:     10,
